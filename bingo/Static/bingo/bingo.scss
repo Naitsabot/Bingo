@@ -1,4 +1,5 @@
 $page-background: #e0e0e0;
+
 $ball-default-text: #ffffffc5;
 $ball-default-border: #7e21cac5;
 $ball-default-bg: #6147d4c5;
@@ -9,9 +10,11 @@ $ball-on-text: #ffffff;
 $ball-on-border: #c6aa5c;
 $ball-on-bg: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
              radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) !important;
-
 $ball-size: 60px;
-$grid-size: 10;
+
+$grid-size-width: 10;
+$grid-size-height: 9;
+
 $action-border: 5px solid #ffffff;
 
 body {
@@ -47,8 +50,8 @@ body {
 
 .bingo-ball-grid {
     display: grid;
-    grid-template-columns: repeat($grid-size, $ball-size);
-    grid-template-rows: repeat($grid-size, $ball-size);
+    grid-template-columns: repeat($grid-size-width, $ball-size);
+    grid-template-rows: repeat($grid-size-height, $ball-size);
     gap: 10px; // Adjust the gap between circles as needed
 }
 

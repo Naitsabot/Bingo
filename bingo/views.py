@@ -11,7 +11,7 @@ def index(request):
     
     context = {
         "bingo_numbers": bingo_numbers,
-        "empty_numbers": ["."]*(100-bingo_numbers_len)
+        "empty_numbers": ["."]*(90-bingo_numbers_len)
     }
     
     return render(request, "bingo/index.html", context)
