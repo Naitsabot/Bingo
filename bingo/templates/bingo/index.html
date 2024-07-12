@@ -1,0 +1,56 @@
+{% load static %}
+{% load compress %}
+
+{% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'bingo/bingo.scss' %}" media="screen">
+{% endcompress %}
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>BitBingo 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+    <div class="page-container">
+        <div class="header">BitBingoV2</div>
+
+        <div class="bingo-ball-container">
+            <div class="bingo-ball-grid">
+                {% for bingo_number in bingo_numbers %}
+                    {% if bingo_number.picked %}
+                        <div class="bingo-ball on">
+                            {{ bingo_number.number }}
+                        </div>
+                    {% else %}
+                        <div class="bingo-ball off">
+                            {{ bingo_number.number }}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+                {% for empty_number in empty_numbers %}
+                    <div class="bingo-ball">
+                        {{ empty_number }}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="action-container">
+            <div class="image-container">
+                <img src="{% static 'bingo/putter.gif' %}" alt="GIF placeholder">
+                <div class="image-text">000</div>
+            </div>
+            <div class="button-container">
+                <button>Træk et nummer!</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'bingo/bingo.js' %}"></script>
+</body>
+</html>
+
+
+
+
