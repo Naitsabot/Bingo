@@ -5,7 +5,7 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 class BingoNumber(models.Model):
     number = models.IntegerField(unique="True", validators=[
-            MaxValueValidator(99),
+            MaxValueValidator(90),
             MinValueValidator(1)
         ])
     author = default_text = models.TextField(max_length=100, default="")
