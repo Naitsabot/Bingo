@@ -1,5 +1,6 @@
 # Hello
-This is a Bit Bingo app rewritten in Django, form the project https://github.com/AsbjoernJC/Bingo
+This is a Bit Bingo app written in Django
+Heavily inspired by this project here: https://github.com/AsbjoernJC/Bingo
 
 # Apps
 
