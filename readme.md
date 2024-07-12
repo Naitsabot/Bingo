@@ -1,13 +1,11 @@
 # Hello
-This is a Bit Bingo app rewritten in Django, form the project https://github.com/AsbjoernJC/Bingo
+This is a Bit Bingo app written in Django
 
----
+Heavily inspired by this project here: https://github.com/AsbjoernJC/Bingo
 
 # Apps
 
 Bingo in `./bingo`
-
----
 
 # Usage
 
@@ -17,8 +15,6 @@ Bingo in `./bingo`
 4. `python manage.py runserver`
 5. ...
 6. Profit?
-
----
 
 # Links
 
