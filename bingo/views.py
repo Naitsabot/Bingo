@@ -4,6 +4,7 @@ from django.http import JsonResponse
 from .models import BingoNumber
 
 import json
+import random
 
 # Create your views here.
 
@@ -21,17 +22,20 @@ def index(request):
 
 def bingo_object(request, number):
     if request.method == "GET":
-        bingo_number = BingoNumber.objects.get(number=number)
-        
-        url = bingo_number.gif_url if bingo_number.gif_url != "" else "/static/bingo/putter.gif"
-        text = bingo_number.default_text
-        
-        context = {
-            "url": url,
-            "text": text
-        }
-        
-        return JsonResponse(context, safe=False)
+        try:
+            bingo_number = BingoNumber.objects.get(number=number)
+            gif_urls = bingo_number.gif_urls.all()
+            url = random.choice(gif_urls).url if gif_urls else "/static/bingo/putter.gif"
+            text = bingo_number.default_text
+            
+            context = {
+                "url": url,
+                "text": text
+            }
+            
+            return JsonResponse(context, safe=False)
+        except:
+            return JsonResponse({"error": "Bingo number not found"}, status=404)
 
 def bingo_numbers_data(request):
     if request.method == "GET":
