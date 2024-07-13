@@ -64,7 +64,7 @@ async function postData(data) {
 
 async function startCycling() {
     display = document.querySelector(".image-container .image-text");
-    duration = 1000; // miliseconds
+    duration = 4444; // miliseconds
     startTime = Date.now();
     endTime = startTime + duration;
     
