@@ -10,6 +10,7 @@
     <meta charset="utf-8">
     <title>BitBingo 2.0</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href={% static 'bingo/fav.png' %}>
 </head>
 <body>
     <div class="page-container">
@@ -19,11 +20,11 @@
             <div class="bingo-ball-grid">
                 {% for bingo_number in bingo_numbers %}
                     {% if bingo_number.picked %}
-                        <div class="bingo-ball on">
+                        <div class="bingo-ball on" id="ball_{{bingo_number.number}}">
                             {{ bingo_number.number }}
                         </div>
                     {% else %}
-                        <div class="bingo-ball off">
+                        <div class="bingo-ball off" id="ball_{{bingo_number.number}}">
                             {{ bingo_number.number }}
                         </div>
                     {% endif %}

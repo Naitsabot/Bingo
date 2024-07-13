@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # other apps
     "compressor",
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'BitBingo.urls'
@@ -138,6 +141,25 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Compressor settings
+
 COMPRESS_PRECOMPILERS = (
     ('text/x-scss', 'django_libsass.SassCompiler'),
+)
+
+# CORS settings
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOWED_ORIGINS = [
+    'https://giphy.com',
+    'https://*.giphy.com',
+    'https://tenor.com',
+    'https://*.tenor.com',
+]
+
+CORS_ORIGIN_WHITELIST = (
+    'https://giphy.com',
+    'https://*.giphy.com',
+    'https://tenor.com',
+    'https://*.tenor.com',
 )

@@ -1,13 +1,70 @@
-'use strict';
+"use strict";
 
 let drawnNumbers = [];
-let display, startTime, endTime, duration, interval, finalNumber;
+let display, startTime, endTime, duration, interval, finalNumber, imageURL;
 const lowerbound = 1;
-const upperbound = 90;
+const upperbound = 12;
+let csrftoken = getToken("csrftoken")
+
+function getToken(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie != "") {
+        const cookies = document.cookie.split(";");
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0,name.length + 1) === (name + "=")) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+async function fetchData() {
+    fetch("./api/data/")
+        .then(response => response.json())
+        .then(data => {
+            data.forEach(number => {
+                drawnNumbers.push(number.number);
+            });
+            startCycling();
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
+
+async function fetchObj() {
+    return fetch("./api/data/" + finalNumber + "/")
+        .then(response => response.json())
+        .then(data => {
+            return data;
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
+
+async function postData(data) {
+    fetch("./api/data/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken":csrftoken,
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
+
+}
 
 function startCycling() {
-    display = document.querySelector('.image-container .image-text');
-    duration = 4321; // miliseconds
+    display = document.querySelector(".image-container .image-text");
+    duration = 1000; // miliseconds
     startTime = Date.now();
     endTime = startTime + duration;
     
@@ -48,6 +105,8 @@ function updateNumber() {
     if (remainingTime <= 0) {
         display.innerText = finalNumber;
         clearTimeout(interval);
+        updateImage();
+        updateBall();
     } else {
         display.innerText = getRandomNumber();
         let intervalTime = Math.pow(progress, 2) * 100; // slows down over time
@@ -55,5 +114,19 @@ function updateNumber() {
     }
 }
 
+function updateBall() {
+    postData({ number: finalNumber });
+    document.getElementById("ball_" + finalNumber).classList = "bingo-ball on";
+}
+
+async function updateImage() {
+    const obj = await fetchObj();
+    console.log(obj);
+    const image = document.querySelector(".image-container img");
+    image.src = obj.url;
+    image.alt = obj.text;
+}
+
+
 const button = document.querySelector(".button-container button");
-button.addEventListener("click", startCycling);
+button.addEventListener("click", fetchData);
