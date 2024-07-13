@@ -5,6 +5,7 @@ let display, startTime, endTime, duration, interval, finalNumber, imageURL;
 const lowerbound = 1;
 const upperbound = 12;
 let csrftoken = getToken("csrftoken")
+let obj;
 
 function getToken(name) {
     let cookieValue = null;
@@ -59,10 +60,9 @@ async function postData(data) {
     .catch((error) => {
         console.error("Error:", error);
     });
-
 }
 
-function startCycling() {
+async function startCycling() {
     display = document.querySelector(".image-container .image-text");
     duration = 1000; // miliseconds
     startTime = Date.now();
@@ -70,7 +70,9 @@ function startCycling() {
     
     finalNumber = getUniqueRandomNumber();
     updateNumber();
-    
+    postData({ number: finalNumber });
+    obj = await fetchObj();
+
     console.log(drawnNumbers);
     console.log(finalNumber);
 }
@@ -115,13 +117,10 @@ function updateNumber() {
 }
 
 function updateBall() {
-    postData({ number: finalNumber });
     document.getElementById("ball_" + finalNumber).classList = "bingo-ball on";
 }
 
-async function updateImage() {
-    const obj = await fetchObj();
-    console.log(obj);
+function updateImage() {
     const image = document.querySelector(".image-container img");
     image.src = obj.url;
     image.alt = obj.text;
