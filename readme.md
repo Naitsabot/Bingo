@@ -9,12 +9,20 @@ Bingo in `./bingo`
 
 # Usage
 
+#### Initial startup
+
 1. Install python
 2. Install requitements `pip install requirements.txt`
 3. `python manage.py migrate`
 4. `python manage.py runserver`
 5. ...
 6. Profit?
+
+#### Later
+
+1. `python manage.py runserver`
+2. ...
+3. Profit?
 
 # Links
 
