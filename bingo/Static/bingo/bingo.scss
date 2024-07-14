@@ -9,7 +9,7 @@ $ball-off-bg: #f07306;
 $ball-on-text: #ffffff;
 $ball-on-border: #c6aa5c;
 $ball-on-bg: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-             radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%) !important;
+             radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
 $ball-size: 60px;
 
 $grid-size-width: 10;
@@ -133,13 +133,13 @@ body {
 .button-container {
     width: 100%;
     text-align: center;
-    margin-top: 10px; // Add some space between the image and button
+    margin-top: 2px; // Add some space between the image and button
 }
-  
+
 .button-container button {
     width: 100%;
-    padding: 10px 20px;
-    font-size: 3em;
+    padding: 5px 10px;
+    font-size: 2.5em;
     background: $ball-off-bg;
     border: 2px solid $ball-off-border;
     color: $ball-default-text;
