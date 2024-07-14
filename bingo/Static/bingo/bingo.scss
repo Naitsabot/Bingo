@@ -20,10 +20,14 @@ $action-border: 5px solid #ffffff;
 body {
     font-family: 'Courier New', Courier, monospace;
     background-color: $page-background;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; // Ensure the body takes at least the full viewport height
+    margin: 0;
 }
 
 .page-container {
-    display: grid;
     display: grid;
     grid-template-areas: 
         "header header header header header"
