@@ -1,4 +1,4 @@
-django==5.0.6 #Django framework
-django-compressor==4.5 #Compressing CSS and JS files
-django-libsass==0.9 #Compiling Sass file
-django-cors-headers==4.4.0 #CORS headers
+django~=5.0.6 #Django framework
+django-compressor~=4.5 #Compressing CSS and JS files
+django-libsass~=0.9 #Compiling Sass file
+django-cors-headers~=4.4.0 #CORS headers
