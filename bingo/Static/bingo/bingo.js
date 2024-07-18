@@ -1,30 +1,13 @@
 "use strict";
-
+//hello
 let drawnNumbers = [];
 let display, startTime, endTime, duration, interval, finalNumber, imageURL;
 const lowerbound = 1;
 const upperbound = 12;
-let csrftoken = getToken("csrftoken")
 let obj;
 
-function getToken(name) {
-    let cookieValue = null;
-    if (document.cookie && document.cookie != "") {
-        const cookies = document.cookie.split(";");
-        for (let i = 0; i < cookies.length; i++) {
-            const cookie = cookies[i].trim();
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0,name.length + 1) === (name + "=")) {
-                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                break;
-            }
-        }
-    }
-    return cookieValue;
-}
-
 async function fetchData() {
-    fetch("./api/data/")
+    fetch("./api/data/numbers/")
         .then(response => response.json())
         .then(data => {
             data.forEach(number => {
@@ -36,7 +19,7 @@ async function fetchData() {
 }
 
 async function fetchObj() {
-    return fetch("./api/data/" + finalNumber + "/")
+    return fetch("./api/data/numbers/" + finalNumber + "/")
         .then(response => response.json())
         .then(data => {
             return data;
@@ -44,12 +27,12 @@ async function fetchObj() {
         .catch(error => console.error("Error fetching data:", error));
 }
 
-async function postData(data) {
-    fetch("./api/data/", {
+async function postData(data, csrftoken) {
+    await fetch("./api/data/numbers/", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
-            "X-CSRFToken":csrftoken,
+            "X-CSRFToken": csrftoken,
         },
         body: JSON.stringify(data),
     })
@@ -70,7 +53,9 @@ async function startCycling() {
     
     finalNumber = getUniqueRandomNumber();
     updateNumber();
-    postData({ number: finalNumber });
+
+    const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    postData({ number: finalNumber }, csrftoken);
     obj = await fetchObj();
 
     console.log(drawnNumbers);
@@ -126,6 +111,10 @@ function updateImage() {
     image.alt = obj.text;
 }
 
+function start(event) {
+    event.preventDefault();
+    fetchData();
+}
 
 const button = document.querySelector(".button-container button");
-button.addEventListener("click", fetchData);
+button.addEventListener("click", start);

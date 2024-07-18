@@ -43,7 +43,10 @@
                 <div class="image-text">000</div>
             </div>
             <div class="button-container">
-                <button>Træk et nummer!</button>
+                <form id="bingo-form">
+                    {% csrf_token %}
+                    <button>Træk et nummer!</button>
+                </form>
             </div>
         </div>
     </div>
