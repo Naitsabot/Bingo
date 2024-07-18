@@ -58,7 +58,8 @@ def bingo_numbers_data(request):
         
         
 def card_generator(request):
-    return render(request, "bingo/ticketgen.html")
+    if request.method == "GET":
+        return render(request, "bingo/ticketgen.html")
 
 def card_generator_api(request):
     if request.method == "GET":
