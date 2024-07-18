@@ -18,7 +18,7 @@ def index(request):
         "empty_numbers": ["."]*(90-bingo_numbers_len)
     }
     
-    return render(request, "bingo/index.html", context)
+    return render(request, "bingo/bingoindex.html", context)
 
 def bingo_object(request, number):
     if request.method == "GET":
