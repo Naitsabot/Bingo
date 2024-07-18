@@ -18,7 +18,7 @@ def index(request):
         "empty_numbers": ["."]*(90-bingo_numbers_len)
     }
     
-    return render(request, "bingo/bingoindex.html", context)
+    return render(request, "bingo/bingo.html", context)
 
 def bingo_object(request, number):
     if request.method == "GET":
@@ -55,3 +55,14 @@ def bingo_numbers_data(request):
             return JsonResponse({"success": True})
         except:
             return JsonResponse({"success": False})
+        
+        
+def card_generator(request):
+    return render(request, "bingo/ticketgen.html")
+
+def card_generator_api(request):
+    if request.method == "GET":
+        return HttpResponse("Not implemented")
+    
+    else:
+        return HttpResponse("Not implemented")

@@ -1,0 +1,18 @@
+{% load static %}
+{% load compress %}
+
+{% compress css %}
+    <link rel="stylesheet" type="text/x-scss" href="{% static 'bingo/plader.scss' %}" media="screen">
+{% endcompress %}
+
+<head>
+    <meta charset="utf-8">
+    <title>Gen | BitBingo 2.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href={% static 'bingo/fav.png' %}>
+</head>
+<body> 
+    <h>BitBingoV2 - Ticket Gen</h>
+    <script src="{% static 'bingo/plader.js' %}"></script>
+</body>
+</html>
