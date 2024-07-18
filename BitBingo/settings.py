@@ -163,3 +163,9 @@ CORS_ORIGIN_WHITELIST = (
     'https://tenor.com',
     'https://*.tenor.com',
 )
+
+
+# CSRF settings
+
+CSRF_COOKIE_NAME = "csrftoken"
+CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
