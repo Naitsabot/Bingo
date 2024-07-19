@@ -83,6 +83,7 @@ def create_ticket_element():
     my_table_style = TableStyle([
                                 ('INNERGRID', (0,0), (-1,-1), 2, colors.black),
                                 ('BOX', (0,0), (-1,-1), 5, colors.black),
+                                ("ROUNDEDCORNERS", (10,10,10,10)),
                                 ('ALIGN',(0,0),(-1,-1),'CENTER'),
                                 ('VALIGN',(0,0),(-1,-1),'MIDDLE'),
                                 ("TOPPADDING", (0, 0), (-1, -1), 0),
