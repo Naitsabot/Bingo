@@ -5,6 +5,30 @@ from reportlab.lib import colors
 
 import random
 
+def pattern_generator():
+    """
+    Generate a random pattern for a bingo ticket
+    """
+    pattern = []
+    
+    for _ in range(3):
+        row = [1] * 5 + [0] * 4
+        random.shuffle(row)
+        pattern.append(row)
+    
+    pattern = transpose(pattern)
+    
+    for col in pattern:
+        if not col.count(1):
+            rand_strong_col = random.choice([c for c in pattern if c.count(1) > 1])
+            rand_strong_col_indexis = [index for index, value in enumerate(rand_strong_col) if value == 1]
+            rand_strong_col_idx = random.choice(rand_strong_col_indexis)
+            col[rand_strong_col_idx] = 1
+            rand_strong_col[rand_strong_col_idx] = 0
+        
+        
+    return pattern
+
 def ticket_generator():
     """
     Bingo Ticket Generator
@@ -14,7 +38,7 @@ def ticket_generator():
     """
     
     # Define the pattern for the number of entries in each column
-    pattern = [[0,0,1],
+    """ pattern = [[0,0,1],
                [0,1,0],
                [1,0,1],
                [1,0,0],
@@ -23,7 +47,8 @@ def ticket_generator():
                [0,0,1],
                [0,1,1],
                [1,1,1]]
-    random.shuffle(pattern)
+    random.shuffle(pattern) """
+    pattern = pattern_generator()
     
     # Generate number ranges for each column
     number_ranges  = [list(range(1,10)), list(range(10,20)), list(range(20,30)), 
@@ -33,6 +58,7 @@ def ticket_generator():
     
     # Shuffle and assign numbers to the columns based on the pattern
     ticket = [["" for _ in range(3)] for _ in range(9)]
+    
     for col in range(9):
         num_count = pattern[col].count(1)
         column_numbers = random.sample(number_ranges[col], num_count)
@@ -47,7 +73,7 @@ def ticket_generator():
     return ticket
 
 def transpose(matrix):
-    return [[row[i] for row in matrix] for i in range(3)]
+    return [[row[i] for row in matrix] for i in range(len(matrix[0]))]
 
 def create_ticket_element():
     data = ticket_generator()
@@ -62,7 +88,7 @@ def create_ticket_element():
                                 ("BOTTOMPADDING", (0, 0), (-1, -1), 0),
                                 ("FONTNAME", (0, 0), (-1, -1), "Courier-Bold"),
                                 ("FONTSIZE", (0, 0), (-1, -1), 32),
-                                ("LEADING", (0, 0), (-1, -1), 32)
+                                ("LEADING", (0, 0), (-1, -1), 42) # give nok rum til fontsize
                                 ])
     
     table = Table(data, colWidths=2*cm, rowHeights=2*cm)
