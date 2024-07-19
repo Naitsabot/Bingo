@@ -1,0 +1,68 @@
+$boobies: #b00b1e;
+$light-boobies: #b00b1e55;
+$page-background: #e0e0e0;
+
+body {
+    background-color: $page-background;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; // Ensure the body takes at least the full viewport height
+    margin: 1em;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h1 {
+    color: $boobies;
+    font-size: 3em;
+    font-weight: bold;
+    
+}
+
+p {
+    color: $boobies;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+fieldset {
+    width: fit-content;
+    height: fit-content;
+    border: 5px solid $boobies;
+    border-radius: 10px;
+    padding: 1em;
+    margin: 1em;
+}
+
+fieldset legend {
+    color: $boobies;
+    font-size: 2em;
+    font-weight: bold;
+}
+
+fieldset label {
+    color: $boobies;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+fieldset input[type="number"] {
+    color: $boobies;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 2px solid $boobies;
+    border-radius: 5px;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: 4em;
+}
+
+fieldset input[type="submit"] {
+    color: $boobies;
+    font-size: 1.5em;
+    font-weight: bold;
+    border: 2px solid $boobies;
+    border-radius: 5px;
+    padding: 0.5em;
+    margin: 0.5em;
+    width: fit-content;
+}

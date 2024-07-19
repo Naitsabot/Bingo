@@ -11,11 +11,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/x-icon" href={% static 'bingo/fav.png' %}>
 </head>
-<body> 
-    <h>BitBingoV2 - Ticket Gen</h>
-    <form id="ticketgen" action="/bingo/api/tickets/" method="get">
-        <input type="number" name="count" value="1" min="1">
-        <input type="submit" value="generate">
+<body>
+    <div>
+        <h1>BitBingoV2 - Ticket Generator</h1>
+        <p>Generate a PDF file of <i>n</i> bingo tickets:</p>
+        <fieldset>
+            <legend>Options</legend>
+            <form action="/bingo/api/tickets/" method="get">
+                <label for="count">Number of tickets:</label>
+                <input type="number" name="count" value="9" min="1">
+                <input type="submit" value="Gib me, I neeeeed it, I waaaant it, pretty please 🤤">
+            </form>
+        </fieldset>
+        <p>*There are 4 tickets pr page</p>
+    </div>
     <script src="{% static 'bingo/plader.js' %}"></script>
 </body>
 </html>
