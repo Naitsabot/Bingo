@@ -7,6 +7,12 @@ Inspired by and evolved upon this project here: https://github.com/AsbjoernJC/Bi
 
 Bingo in `./bingo`
 
+# Links
+
+- `$base_url/admin/` - Administration, mostly for changing data of bingo numbers hehe
+- `$base_url/bingo/` - The bingo app site
+- `$base_url/bingo/gen/` - Bingo ticket pdf generator
+
 # Usage
 
 #### Initial startup
@@ -23,9 +29,3 @@ Bingo in `./bingo`
 1. `python manage.py runserver`
 2. ...
 3. Profit?
-
-# Links
-
-- `$base_url/admin/` - Administration, mostly for changing data of bingo numbers hehe
-- `$base_url/bingo/` - The bingo app site
-- `$base_url/bingo/gen/` - Bingo ticket pdf generator
