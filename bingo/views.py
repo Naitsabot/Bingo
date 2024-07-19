@@ -1,7 +1,9 @@
 from django.shortcuts import render, HttpResponse
-from django.http import JsonResponse
+from django.http import JsonResponse, FileResponse
 
 from .models import BingoNumber
+
+from .utils import PDF_ticket_generator
 
 import json
 import random
@@ -9,16 +11,19 @@ import random
 # Create your views here.
 
 def index(request):
-    bingo_numbers = BingoNumber.objects.order_by("number").all()
-    
-    bingo_numbers_len = len(bingo_numbers)
-    
-    context = {
-        "bingo_numbers": bingo_numbers,
-        "empty_numbers": ["."]*(90-bingo_numbers_len)
-    }
-    
-    return render(request, "bingo/bingo.html", context)
+    try:
+        bingo_numbers = BingoNumber.objects.order_by("number").all()
+        
+        bingo_numbers_len = len(bingo_numbers)
+        
+        context = {
+            "bingo_numbers": bingo_numbers,
+            "empty_numbers": ["."]*(90-bingo_numbers_len)
+        }
+        
+        return render(request, "bingo/bingo.html", context)
+    except:
+        return HttpResponse("Error").status_code(404)
 
 def bingo_object(request, number):
     if request.method == "GET":
@@ -39,9 +44,12 @@ def bingo_object(request, number):
 
 def bingo_numbers_data(request):
     if request.method == "GET":
-        data = list(BingoNumber.objects.order_by("number").all().filter(picked=True).values())
-        
-        return JsonResponse(data, safe=False)
+        try:
+            data = list(BingoNumber.objects.order_by("number").all().filter(picked=True).values())
+            
+            return JsonResponse(data, safe=False)
+        except:
+            return JsonResponse({"error": "Error fetching data"}, status=404)
     
     elif request.method == "POST":
         try:
@@ -59,11 +67,18 @@ def bingo_numbers_data(request):
         
 def card_generator(request):
     if request.method == "GET":
-        return render(request, "bingo/ticketgen.html")
+        try:
+            return render(request, "bingo/ticketgen.html")
+        except:
+            return HttpResponse("error").status_code(404)
 
 def card_generator_api(request):
     if request.method == "GET":
-        return HttpResponse("Not implemented")
+        try:
+            n = int(request.GET.get("count", 1))
+            
+            buffer = PDF_ticket_generator(n)
+            return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+        except:
+            return HttpResponse("error").status_code(404)
     
-    else:
-        return HttpResponse("Not implemented")

@@ -13,5 +13,4 @@ urlpatterns = [
     path("gen/", views.card_generator, name='card_generator'),
     # ex: /bingo/api/card/ - API Data - GET generated card in pdf format
     path("api/tickets/", views.card_generator_api, name='card_generator_api'),
-    
 ]

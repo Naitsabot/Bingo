@@ -1,3 +1,4 @@
+import io
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.units import cm
 from reportlab.platypus import SimpleDocTemplate, Spacer, PageBreak, Table, TableStyle
@@ -107,9 +108,13 @@ def PDF_ticket_generator(number_of_tickets):
     """
     Generate a PDF with number_of_tickets bingo tickets
     """
+    # Create a buffer to store the PDF
+    buffer = io.BytesIO()
+    
     # Create a list of tickets
     document = []
     
+    # Create the tickets
     for i in range(number_of_tickets):
         table = create_ticket_element()
         document.append(table)
@@ -119,10 +124,16 @@ def PDF_ticket_generator(number_of_tickets):
             document.append(PageBreak())
         else: 
             document.append(Spacer(1, 1*cm))
-       
-    SimpleDocTemplate("bingo_tickets.pdf", 
+    
+    # Build the PDF
+    SimpleDocTemplate(buffer, 
                       pagesize=A4,
                       topMargin=1*cm,
                       bottomMargin=1*cm,
                       leftMargin=1*cm,
                       rightMargin=1*cm).build(document)
+    
+    # Return the buffer
+    buffer.seek(0)
+      
+    return buffer

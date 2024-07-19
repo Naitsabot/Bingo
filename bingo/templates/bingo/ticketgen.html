@@ -13,6 +13,9 @@
 </head>
 <body> 
     <h>BitBingoV2 - Ticket Gen</h>
+    <form id="ticketgen" action="/bingo/api/tickets/" method="get">
+        <input type="number" name="count" value="1" min="1">
+        <input type="submit" value="generate">
     <script src="{% static 'bingo/plader.js' %}"></script>
 </body>
 </html>
