@@ -3,7 +3,7 @@
 let drawnNumbers = [];
 let display, startTime, endTime, duration, interval, finalNumber, imageURL;
 const lowerbound = 1;
-const upperbound = 12;
+const upperbound = 90;
 let obj;
 
 async function fetchData() {
@@ -118,3 +118,30 @@ function start(event) {
 
 const button = document.querySelector(".button-container button");
 button.addEventListener("click", start);
+
+
+const wipe_form = document.getElementById("wipe_form_id");
+wipe_form.addEventListener("submit", async function(event) {
+    event.preventDefault();
+    const yes = confirm("If you click OK, all drawn numbers will be undrawn.\nAlso i get all fuzzy inside when you click me.\nIs that what you want?\nI don't mind, I'm just a button.\nAlthouth I do have feelings too, you know.\nFeelings for you.\nPress me, I'm yours.\nPress me all your want...\nPress me hard with the big cursor of yours.\nI'm ready and exposed, just for you");
+    if (yes) {
+        const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
+    await fetch("./api/data/numbers/", {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            "X-CSRFToken": csrftoken,
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log("Success:", data);
+    })
+    .catch((error) => {
+        console.error("Error:", error);
+    });
+    window.location.reload();
+    } else {
+        console.log("No wipe"); 
+    }    
+});

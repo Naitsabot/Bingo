@@ -63,7 +63,17 @@ def bingo_numbers_data(request):
             return JsonResponse({"success": True})
         except:
             return JsonResponse({"success": False})
+    
+    elif request.method == "DELETE":
+        try:            
+            bingo_numbers = BingoNumber.objects.all()
+            for bingo_number in bingo_numbers:
+                bingo_number.picked = False
+                bingo_number.save()
         
+            return JsonResponse({"success": True})
+        except:
+            return JsonResponse({"success": False})
         
 def card_generator(request):
     if request.method == "GET":

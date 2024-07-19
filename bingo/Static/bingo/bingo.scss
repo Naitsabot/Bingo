@@ -17,6 +17,9 @@ $grid-size-height: 9;
 
 $action-border: 5px solid #ffffff;
 
+$weird-button: #ca5510;
+$boobies: #b00b1e;
+
 body {
     font-family: 'Courier New', Courier, monospace;
     background-color: $page-background;
@@ -43,6 +46,27 @@ body {
     font-size: 5em;
     font-weight: bold;
     margin-bottom: 20px;
+
+}
+
+.header span {
+    color: $boobies;
+}
+
+.header form {
+    display: inline;
+}
+
+.header form input[type="submit"] {
+    font-size: 1em;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+    background: none; 
+    border: none; 
+    margin: 0;
+    padding: 0;
+    color: $weird-button;
+    cursor: pointer;
 }
 
 .bingo-ball-container {
@@ -133,19 +157,22 @@ body {
 .button-container {
     width: 100%;
     text-align: center;
-    margin-top: 2px; // Add some space between the image and button
 }
 
 .button-container button {
+    padding: 5px 5px;
     width: 100%;
-    padding: 5px 10px;
+    border-radius: 25px;
     font-size: 2.5em;
     background: $ball-off-bg;
     border: 2px solid $ball-off-border;
     color: $ball-default-text;
     cursor: pointer;
     transition: background-color 0.3s;
-    border-radius: 25px;
+}
+
+.button-container form {
+    margin: 0;
 }
 
 .button-container button:hover {
