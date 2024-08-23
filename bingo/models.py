@@ -7,7 +7,7 @@ class BingoNumber(models.Model):
             MaxValueValidator(90),
             MinValueValidator(1)
         ])
-    author = default_text = models.TextField(max_length=100, default="")
+    author = models.TextField(max_length=100, default="", blank=True)
     default_text = models.TextField(max_length=100, default="")
     picked = models.BooleanField(default=False)
 

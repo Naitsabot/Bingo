@@ -19,11 +19,12 @@
             <legend>Options</legend>
             <form action="/bingo/api/tickets/" method="get">
                 <label for="count">Number of tickets:</label>
-                <input type="number" name="count" value="8" min="1">
+                <input type="number" name="count" value="8" min="1" max="1024">
                 <input type="submit" value="Gib me, I neeeeed it, I waaaant it, pwetty please 🤤">
             </form>
         </fieldset>
         <p>*There are 4 tickets pr page</p>
+        <p>**Maximum 1024 plates, because holy shit</p>
         <p>Back to <a href="/bingo/">BitBingoV2</a></p>
     </div>
     <script src="{% static 'bingo/plader.js' %}"></script>
