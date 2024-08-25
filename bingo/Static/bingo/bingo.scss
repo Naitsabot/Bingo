@@ -20,6 +20,14 @@ $action-border: 5px solid #ffffff;
 $weird-button: #ca5510;
 $boobies: #b00b1e;
 
+$disabledbutton: #cccccc;
+$disabledborder: #999999;
+$disabledtext: #666666;
+
+$settings-background: #999999;
+$settings-inner-background: #cccccc;
+$settings-border: 1px solid #666666;
+
 body {
     font-family: 'Courier New', Courier, monospace;
     background-color: $page-background;
@@ -178,4 +186,79 @@ body {
 .button-container button:hover {
     background: $ball-on-bg;
     border: 2px solid $ball-on-border;
+}
+
+.button-container button:active {
+    background: $ball-default-bg;
+    border: 2px solid $ball-default-border;
+}
+
+.button-container button:disabled {
+    background: $disabledbutton;
+    border: 2px solid $disabledborder;
+    color: $disabledtext;
+    cursor: not-allowed;
+}
+
+.button-container button:disabled:hover {
+    background: $disabledbutton;
+    border: 2px solid $disabledborder;
+}
+
+.settings-container {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: auto;
+    height: auto;
+    background-color: $settings-background;
+    border: 1px solid $settings-border;
+    z-index: 9999;
+    font-size: 1em;
+    padding: 5px;
+    border-radius: 5px;
+    display: grid;
+    grid-template-areas: 
+        "time easeing"
+}
+
+.settings-container p {
+    margin: 0;
+    padding: 5px;
+    text-align: center;
+    background-color: $settings-inner-background;
+    border: 1px solid $settings-border;
+}
+
+.settime-container {
+    grid-area: time;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.settime-container input[type="number"] {
+    width: 70px;
+    font-size: .75em;
+    padding: 5px;
+    margin: 0;
+    border-radius: 5px;
+    background-color: $settings-inner-background;
+    border: 1px solid $settings-border;
+}
+
+.seteasing-container {
+    grid-area: easeing;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.seteasing-container select {
+    font-size: .75em;
+    padding: 5px;
+    margin: 0;
+    border-radius: 5px;
+    background-color: $settings-inner-background;
+    border: 1px solid $settings-border;
 }
