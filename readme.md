@@ -25,7 +25,7 @@ Bingo in `./bingo`
 5. ...
 6. Profit?
 
-# Initial startup for Ubuntu with virtual envs:
+#### Initial startup for Ubuntu with virtual envs:
 
 - `Install python3 with pip`
 - `sudo apt install python3 python3-pip python3-venv`
