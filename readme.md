@@ -40,3 +40,8 @@ Bingo in `./bingo`
 1. `python manage.py runserver`
 2. ...
 3. Profit?
+
+with gunicorn:
+1. `gunicorn Bingo.wsgi` (flags and ip/port may be set also)
+2. ...
+3. profit?
