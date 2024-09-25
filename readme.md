@@ -20,6 +20,14 @@ Bingo in `./bingo`
 
 1. Install python
 2. Install requitements `pip install -r requirements.txt`
+- Generate secret key in python shell: `from django.core.management.utils import get_random_secret_key; get_random_secret_key()`
+- set .env file: 
+```env
+DJANGO_SECRET_KEY="INSERT YOUR GENERATED KEY HERE"
+DJANGO_DEBUG=False
+DJANGO_CSRF_COOKIE_SECURE=True
+DJANGO_SESSION_COOKIE_SECURE=True
+```
 3. `python manage.py migrate`
 4. `python manage.py runserver`
 5. ...
@@ -32,7 +40,16 @@ Bingo in `./bingo`
 - Create virtual environment `python3 -m venv venv`
 - Activate virtualenv `source venv/bin/activate`
 - Install packages `pip3 install -r requirements.txt`
-- ???
+- Generate secret key in python shell: `from django.core.management.utils import get_random_secret_key; get_random_secret_key()`
+- set .env file: 
+```env
+DJANGO_SECRET_KEY="INSERT YOUR GENERATED KEY HERE"
+DJANGO_DEBUG=False
+DJANGO_CSRF_COOKIE_SECURE=True
+DJANGO_SESSION_COOKIE_SECURE=True
+```
+- `python manage.py migrate`
+- ...
 - Profit
 
 #### Later

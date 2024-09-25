@@ -30,7 +30,11 @@ SECRET_KEY = environ.get('DJANGO_SECRET_KEY', 'django-insecure-uxf$dl5=ibu82w1q0
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = []
+# Hosts/domain names that are valid for this site
+ALLOWED_HOSTS = ["*"]
+
+# All HTTP requests will be redirected to HTTPS
+SECURE_SSL_REDIRECT = True
 
 
 # Application definition
@@ -183,3 +187,8 @@ CORS_ORIGIN_WHITELIST = (
 
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
+CSRF_COOKIE_SECURE = environ.get('DJANGO_CSRF_COOKIE_SECURE', '') != 'False'
+
+# Session settings
+
+SESSION_COOKIE_SECURE = environ.get('DJANGO_SESSION_COOKIE_SECURE', '') != 'False'
