@@ -34,7 +34,7 @@ DEBUG = environ.get('DJANGO_DEBUG', '') != 'False'
 ALLOWED_HOSTS = ["*"]
 
 # All HTTP requests will be redirected to HTTPS
-SECURE_SSL_REDIRECT = True
+#SECURE_SSL_REDIRECT = True
 
 
 # Application definition
