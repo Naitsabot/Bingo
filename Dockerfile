@@ -1,17 +1,16 @@
-# 1. This tells docker to use the Rust official image
-FROM python:3
+FROM python:3.11
 
-# 2. Copy the files in your machine to the Docker image
-COPY ./ ./
+#COPY ./docker-entrypoint.sh /entrypoint
+#RUN sed -i 's/\r$//g' /entrypoint
+#RUN chmod +x /entrypoint
 
-# Build your program for release
+COPY requirements.txt .
+
 RUN pip install --no-cache-dir -r requirements.txt
+
+COPY . .
+RUN python manage.py collectstatic --noinput
 RUN python manage.py migrate
-#RUN python manage.py runserver
-#RUN python3 -m venv venv
-#RUN source venv/bin/activate
 
-#COPY ./ ./
-
-# Run the binary
-CMD [ "python", "./manage.py", "runserver" ]
+CMD [ "python", "manage.py", "runserver" ]
+#ENTRYPOINT ["/entrypoint"]
