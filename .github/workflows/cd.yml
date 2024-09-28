@@ -2,7 +2,7 @@ name: Deploy docker image
 
 on:
   workflow_run:
-    workflows: []
+    #workflows: []
     branches: [main]
     types: 
       - completed
