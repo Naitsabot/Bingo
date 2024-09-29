@@ -7,7 +7,6 @@ Inspired by and evolved upon this project here: https://github.com/AsbjoernJC/Bi
 
 Bingo in `./bingo`
 
-
 # Links
 
 - `$base_url/admin/` - Administration, mostly for changing data of bingo numbers hehe
@@ -29,9 +28,10 @@ DJANGO_CSRF_COOKIE_SECURE=True
 DJANGO_SESSION_COOKIE_SECURE=True
 ```
 3. `python manage.py migrate`
-4. `python manage.py runserver`
-5. ...
-6. Profit?
+4. `python manage.py collectstatic`
+5. `python manage.py runserver`
+6. ...
+7. Profit?
 
 #### Initial startup for Ubuntu with virtual envs:
 
@@ -49,6 +49,7 @@ DJANGO_CSRF_COOKIE_SECURE=True
 DJANGO_SESSION_COOKIE_SECURE=True
 ```
 - `python manage.py migrate`
+- `python manage.py collectstatic`
 - ...
 - Profit
 
