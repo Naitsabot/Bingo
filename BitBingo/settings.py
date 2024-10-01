@@ -192,3 +192,4 @@ CSRF_COOKIE_SECURE = environ.get('DJANGO_CSRF_COOKIE_SECURE', '') != 'False'
 # Session settings
 
 SESSION_COOKIE_SECURE = environ.get('DJANGO_SESSION_COOKIE_SECURE', '') != 'False'
+
