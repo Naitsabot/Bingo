@@ -23,21 +23,24 @@ def index(request):
     return render(request, "bingo/bingo.html", context)
 
 def bingo_object(request, number):
-    if request.method == "GET":
-        try:
-            bingo_number = BingoNumber.objects.get(number=number)
-            gif_urls = bingo_number.gif_urls.all()
-            url = random.choice(gif_urls).url if gif_urls else "/static/bingo/putter.gif"
-            text = bingo_number.default_text
-            
-            context = {
-                "url": url,
-                "text": text
-            }
-            
-            return JsonResponse(context, safe=False)
-        except:
-            return JsonResponse({"error": "Bingo number not found"}, status=404)
+    if request.method != "GET":
+        return
+
+    try:
+        bingo_number = BingoNumber.objects.get(number=number)
+        gif_urls = bingo_number.gif_urls.all()
+        url = random.choice(gif_urls).url if gif_urls else "/static/bingo/putter.gif"
+        text = bingo_number.default_text
+
+        context = {
+            "url": url,
+            "text": text
+        }
+
+        return JsonResponse(context, safe=False)
+    except:
+        return JsonResponse({"error": "Bingo number not found"}, status=404)
+
 
 def bingo_numbers_data(request):
     if request.method == "GET":
@@ -80,12 +83,14 @@ def card_generator(request):
             return HttpResponse("error").status_code(404)
 
 def card_generator_api(request):
-    if request.method == "GET":
-        try:
-            n = int(request.GET.get("count", 1))
-            
-            buffer = PDF_ticket_generator(n)
-            return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
-        except:
-            return HttpResponse("error").status_code(404)
+    if request.method != "GET":
+        return
+
+    try:
+        n = int(request.GET.get("count", 1))
+
+        buffer = PDF_ticket_generator(n)
+        return FileResponse(buffer, as_attachment=True, filename="hello.pdf")
+    except:
+        return HttpResponse("error").status_code(404)
     
