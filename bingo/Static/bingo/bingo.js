@@ -1,5 +1,5 @@
 "use strict";
-//hello
+
 let drawnNumbers = [];
 let display, startTime, endTime, duration = 4500, interval, finalNumber, imageURL;
 const lowerbound = 1;
@@ -13,9 +13,12 @@ async function fetchData() {
             data.forEach(number => {
                 drawnNumbers.push(number.number);
             });
-            startCycling();
+            return true;
         })
-        .catch(error => console.error("Error fetching data:", error));
+        .catch(error => {
+            console.error("Error fetching data:", error)
+            return false;
+        });
 }
 
 async function fetchObj() {
@@ -46,63 +49,63 @@ async function postData(data, csrftoken) {
 }
 
 async function startCycling() {
-    display = document.querySelector(".image-container .image-text");
-    startTime = Date.now();
-    endTime = startTime + duration;
+    const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value; // Get csrf token
+    finalNumber = getUniqueRandomNumber(); // Get unique random number
+    postData({ number: finalNumber }, csrftoken); // Post number to database
+    obj = await fetchObj(); // Get image object
     
-    finalNumber = getUniqueRandomNumber();
-    updateNumber();
+    display = document.querySelector(".image-container .image-text"); // Get display element
+    startTime = Date.now(); // Get start time
+    endTime = startTime + duration; // Get end time
+    
+    updateNumber(); // Start cycling numbers
 
-    const csrftoken = document.querySelector('input[name="csrfmiddlewaretoken"]').value;
-    postData({ number: finalNumber }, csrftoken);
-    obj = await fetchObj();
-
-    console.log(drawnNumbers);
-    console.log(finalNumber);
+    console.log("new num: " + finalNumber + " drawn: " + drawnNumbers);
 }
 
 function getUniqueRandomNumber() {
-    let availableNumbers = [];
+    let availableNumbers = []; // Array to store available numbers
     for (let i = lowerbound; i <= upperbound; i++) {
         if (!drawnNumbers.includes(i)) {
-            availableNumbers.push(i);
+            availableNumbers.push(i); // Add number to available numbers
         }
     }
+    
     if (availableNumbers.length === 0) {
-        alert("All numbers have been drawn!");
+        alert("All numbers have been drawn!"); // Alert if all numbers have been drawn
         return;
     }
-    let randomIndex = Math.floor(Math.random() * availableNumbers.length);
-    let number = availableNumbers[randomIndex];
-    drawnNumbers.push(number);
+
+    let randomIndex = Math.floor(Math.random() * availableNumbers.length); // Get random index
+    let number = availableNumbers[randomIndex]; // Get random number
+    drawnNumbers.push(number); // Add number to drawn numbers
+
     return number;
 }
 
 function getRandomNumber() {
-    return Math.floor(Math.random() * upperbound) + 1;
+    return Math.floor(Math.random() * upperbound) + 1; // Get random number
 }
 
 function updateNumber() {
-    let currentTime = Date.now();
-    let elapsedTime = currentTime - startTime;
-    let remainingTime = endTime - currentTime;
-    let progress = (elapsedTime / duration);
+    let currentTime = Date.now(); // Get current time
+    let elapsedTime = currentTime - startTime; // Get elapsed time
+    let remainingTime = endTime - currentTime; // Get remaining time
+    let progress = (elapsedTime / duration); // Get progress
 
-    //disabling button
-    button.disabled = true;
-
+    button.disabled = true; // Disabling button
+    
     if (remainingTime <= 0) {
-        //set final number
-        display.innerText = finalNumber;
-        //enabling button
-        button.disabled = false; 
-
-        clearTimeout(interval);
-        updateImage();
-        updateBall();
-    } else {
-        display.innerText = getRandomNumber();
+        display.innerText = finalNumber; // Set final number as display text
+        button.disabled = false; // Enabling button
         
+        clearTimeout(interval);  // Clear interval
+        updateImage(); // Update image
+        updateBall(); // Update ball
+    } else {
+        display.innerText = getRandomNumber(); // Set random number as display text
+        
+        // Easing
         let easedProgress;
         switch (easing_input.value) {
             case "linear":
@@ -172,32 +175,30 @@ function updateNumber() {
                 easedProgress = easeLinear(progress);
         }
 
-        let intervalTime = Math.pow(easedProgress, 2) * 100; // slows down over time
-        interval = setTimeout(updateNumber, intervalTime);
+        let intervalTime = Math.pow(easedProgress, 2) * 100; // Slows down over time
+        interval = setTimeout(updateNumber, intervalTime); // Update number with interval
     }
 }
 
 function updateBall() {
-    document.getElementById("ball_" + finalNumber).classList = "bingo-ball on";
+    document.getElementById("ball_" + finalNumber).classList = "bingo-ball on"; // Update bingo-ball
 }
 
 function updateImage() {
-    const image = document.querySelector(".image-container img");
-    image.src = obj.url;
-    image.alt = obj.text;
+    const image = document.querySelector(".image-container img"); // Get image element
+    image.src = obj.url; // Set image source
+    image.alt = obj.text; // Set image alt text
 }
 
 function start(event) {
     event.preventDefault();
-    fetchData();
+    let sucess = fetchData();
+    if (sucess) {
+        startCycling();
+    }
 }
 
-const button = document.querySelector(".button-container button");
-button.addEventListener("click", start);
-
-
-const wipe_form = document.getElementById("wipe_form_id");
-wipe_form.addEventListener("submit", async function(event) {
+async function wipe(event) {
     event.preventDefault();
     const yes = confirm("If you click OK, all drawn numbers will be undrawn.\nAlso i get all fuzzy inside when you click me.\nIs that what you want?\nI don't mind, I'm just a button.\nAlthouth I do have feelings too, you know.\nFeelings for you.\nPress me, I'm yours.\nPress me all your want...\nPress me hard with the big cursor of yours.\nI'm ready and exposed, just for you");
     if (yes) {
@@ -220,20 +221,37 @@ wipe_form.addEventListener("submit", async function(event) {
     } else {
         console.log("No wipe"); 
     }    
-});
+}
 
-const time_input = document.getElementById("settime_id");
-time_input.addEventListener("change", function(event) {
+function setTime(event) {
     duration = event.target.value * 1000;
     console.log(duration);
-});
+}
+
+function setEasing(event) {
+    console.log(event.target.value);
+}
+
+function setobjectFit(event) {
+    const fit = event.target.value;
+    const image = document.querySelector(".image-container img");
+    image.style.objectFit = fit;
+}
+
+const button = document.querySelector(".button-container button");
+button.addEventListener("click", start);
+
+const wipe_form = document.getElementById("wipe_form_id");
+wipe_form.addEventListener("submit", wipe);
+
+const time_input = document.getElementById("settime_id");
+time_input.addEventListener("change", setTime);
 
 const easing_input = document.getElementById("seteasing_id");
-easing_input.addEventListener("change", function(event) {
-    console.log(event.target.value);
-});
+easing_input.addEventListener("change", setEasing);
 
-
+const object_fit_input = document.getElementById("setobjectfit_id");
+object_fit_input.addEventListener("change", setobjectFit);
 
 
 // Easing functions
