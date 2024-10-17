@@ -76,11 +76,11 @@ def bingo_numbers_data(request):
             return JsonResponse({"success": False})
         
 def card_generator(request):
-    if request.method == "GET":
-        try:
-            return render(request, "bingo/ticketgen.html")
-        except:
-            return HttpResponse("error").status_code(404)
+    if request.method != "GET":
+        return
+
+    return render(request, "bingo/ticketgen.html")
+
 
 def card_generator_api(request):
     if request.method != "GET":
