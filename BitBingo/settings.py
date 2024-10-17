@@ -11,45 +11,42 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
-from os import path, getenv, environ
+import os
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Support env variables from .env file if defined
-env_path = load_dotenv(path.join(BASE_DIR, '.env'))
-load_dotenv(env_path)
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = environ.get('DJANGO_SECRET_KEY', 'django-insecure-uxf$dl5=ibu82w1q0*wcw(t&mef#!)&q#*1ij7q2@*tc53o=f(')
+SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'django-insecure-uxf$dl5=ibu82w1q0*wcw(t&mef#!)&q#*1ij7q2@*tc53o=f(')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = environ.get('DJANGO_DEBUG', '') != 'False'
+DEBUG = os.environ.get('DJANGO_DEBUG', 'False') == 'True'
 
 # Hosts/domain names that are valid for this site
-ALLOWED_HOSTS = ["*"]
-
-# All HTTP requests will be redirected to HTTPS
-#SECURE_SSL_REDIRECT = True
-
+ALLOWED_HOSTS = os.environ.get('DJANGO_ALLOWED_HOSTS', '*').split(',')
 
 # Application definition
 
 INSTALLED_APPS = [
-    # apps
+    # Apps
     'bingo.apps.BingoConfig',
-    # django apps
+    
+    # Django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # other apps
+    
+    # Other apps
     "compressor",
     'corsheaders',
 ]
@@ -121,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en-gb'
 
 TIME_ZONE = 'UTC'
 
@@ -130,7 +127,7 @@ USE_I18N = True
 USE_TZ = True
 
 
-# Static files (CSS, JavaScript, Images)
+# Static files (SASS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
 STATIC_URL = 'static/'
@@ -142,7 +139,7 @@ STATICFILES_FINDERS = {
     'compressor.finders.CompressorFinder',
 }
 
-# Static file serving.
+# Static file serving (whitenoice).
 # https://whitenoise.readthedocs.io/en/stable/django.html#add-compression-and-caching-support
 STORAGES = {
     # ...
@@ -151,12 +148,10 @@ STORAGES = {
     },
 }
 
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
 
 # Compressor settings
 
@@ -166,8 +161,6 @@ COMPRESS_PRECOMPILERS = (
 
 # CORS settings
 
-CORS_ORIGIN_ALLOW_ALL = True
-
 CORS_ALLOWED_ORIGINS = [
     'https://giphy.com',
     'https://*.giphy.com',
@@ -175,20 +168,14 @@ CORS_ALLOWED_ORIGINS = [
     'https://*.tenor.com',
 ]
 
-CORS_ORIGIN_WHITELIST = (
-    'https://giphy.com',
-    'https://*.giphy.com',
-    'https://tenor.com',
-    'https://*.tenor.com',
-)
-
+CORS_ORIGIN_ALLOW_ALL = True
 
 # CSRF settings
 
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_HEADER_NAME = "HTTP_X_CSRFTOKEN"
-CSRF_COOKIE_SECURE = environ.get('DJANGO_CSRF_COOKIE_SECURE', '') != 'False'
+CSRF_COOKIE_SECURE = os.environ.get('DJANGO_CSRF_COOKIE_SECURE', 'False') == 'True'
 
 # Session settings
 
-SESSION_COOKIE_SECURE = environ.get('DJANGO_SESSION_COOKIE_SECURE', '') != 'False'
+SESSION_COOKIE_SECURE = os.environ.get('DJANGO_SESSION_COOKIE_SECURE', 'False') == 'True'
