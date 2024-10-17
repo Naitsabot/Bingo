@@ -11,19 +11,16 @@ import random
 # Create your views here.
 
 def index(request):
-    try:
-        bingo_numbers = BingoNumber.objects.order_by("number").all()
-        
-        bingo_numbers_len = len(bingo_numbers)
-        
-        context = {
-            "bingo_numbers": bingo_numbers,
-            "empty_numbers": ["."]*(90-bingo_numbers_len)
-        }
-        
-        return render(request, "bingo/bingo.html", context)
-    except:
-        return HttpResponse("Error").status_code(404)
+    bingo_numbers = BingoNumber.objects.order_by("number").all()
+
+    bingo_numbers_len = len(bingo_numbers)
+
+    context = {
+        "bingo_numbers": bingo_numbers,
+        "empty_numbers": ["."]*(90-bingo_numbers_len)
+    }
+
+    return render(request, "bingo/bingo.html", context)
 
 def bingo_object(request, number):
     if request.method == "GET":
