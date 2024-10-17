@@ -1,5 +1,5 @@
 # Hello
-This is a Bit Bingo app written in Django
+This is a Bit Bingo app written in Django 5.0, uses Python 3.11.
 
 Inspired by and evolved upon this project here: https://github.com/AsbjoernJC/Bingo
 
